@@ -18,14 +18,12 @@ const App = () => {
     blogService.getAll().then(blogs =>
       setBlogs(blogs)
     )
-    console.log(blogs)
   }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      console.log('initial user', user)
       setUser(user)
       blogService.setToken(user.token)
     }
@@ -51,8 +49,13 @@ const App = () => {
     window.localStorage.removeItem('loggedUser')
   }
 
-  const handleNewBlog = () => {
-    console.log('Adding new blog...')
+  const handleNewBlog = async (event) => {
+    event.preventDefault()
+    const blog = { title: title, author: author, url: url}
+
+    await blogService.postBlog(blog)
+    const updatedBlogs = await blogService.getAll()
+    setBlogs(updatedBlogs)
   }
 
   const loginForm = () => {
