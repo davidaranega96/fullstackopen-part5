@@ -47,7 +47,7 @@ const App = () => {
       window.localStorage.setItem(
         'loggedUser', JSON.stringify(auth)
       )
-      setNotification({ message: 'Correclty logged in', tone: 'good' })
+      setNotification({ message: 'correclty logged in', tone: 'good' })
     } else {
       console.log('incorrect username or password')
       setNotification({ message: 'incorrect username or password', tone: 'bad' })
@@ -64,9 +64,19 @@ const App = () => {
     event.preventDefault()
     const blog = { title: title, author: author, url: url}
 
-    await blogService.postBlog(blog)
-    const updatedBlogs = await blogService.getAll()
-    setBlogs(updatedBlogs)
+    try {
+      const response = await blogService.postBlog(blog)
+      console.log('response!!!!', response)
+      const updatedBlogs = await blogService.getAll()
+      setBlogs(updatedBlogs)
+      setNotification({ message: 'blog added', tone: 'good' })
+    } catch (error) {
+      console.log(error)
+      setNotification({
+        message: error.response.data.error,
+        tone: 'bad'
+      })
+    }
   }
 
   const loginForm = () => {

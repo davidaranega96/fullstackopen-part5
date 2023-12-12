@@ -16,6 +16,7 @@ const postBlog = async (blog) => {
     headers: { Authorization: token }
   }
   const response = await axios.post(baseUrl, blog, config)
+  return response
 }
 
 export default { getAll, setToken, postBlog }
