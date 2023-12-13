@@ -3,14 +3,12 @@ import Blog from './components/Blog'
 import NewBlog from './components/NewBlog'
 import Login from './components/Login'
 import Notification from './components/Notification'
+import Togglable from './components/Togglable'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [title, setTitle] = useState('')
-  const [url, setUrl] = useState('')
-  const [author, setAuthor] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -60,18 +58,13 @@ const App = () => {
     window.localStorage.removeItem('loggedUser')
   }
 
-  const handleNewBlog = async (event) => {
-    event.preventDefault()
-    const blog = { title: title, author: author, url: url}
-
+  const createBlog = async (newBlogObject) => {
     try {
-      const response = await blogService.postBlog(blog)
-      console.log('response!!!!', response)
-      const updatedBlogs = await blogService.getAll()
-      setBlogs(updatedBlogs)
+      const response = await blogService.postBlog(newBlogObject)
+      console.log('newblog response', response)
+      setBlogs(blogs.concat(response.data))
       setNotification({ message: 'blog added', tone: 'good' })
     } catch (error) {
-      console.log(error)
       setNotification({
         message: error.response.data.error,
         tone: 'bad'
@@ -81,8 +74,10 @@ const App = () => {
 
   const loginForm = () => {
     return (
-      <Login handleLogin={handleLogin} setPassword={setPassword}
+      <Togglable buttonLabel='login'>
+        <Login handleLogin={handleLogin} setPassword={setPassword}
         setUsername={setUsername} username={username} password={password} />
+      </Togglable>
     )
   }
 
@@ -93,8 +88,9 @@ const App = () => {
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
-
-      <NewBlog setTitle={setTitle} setAuthor={setAuthor} setUrl={setUrl} onSubmit={handleNewBlog} />
+      <Togglable buttonLabel='add blog'>
+        <NewBlog createBlog={createBlog} />
+      </Togglable>
       </div>
     )
   }

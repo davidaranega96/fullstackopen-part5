@@ -1,5 +1,28 @@
-const AddBlog = ({ setTitle, setUrl, setAuthor, onSubmit }) => (
-    <form onSubmit={onSubmit}>
+import { useState, useEffect } from 'react'
+import blogService from '../services/blogs'
+
+const AddBlog = ({ createBlog }) => {
+  const [title, setTitle] = useState('')
+  const [url, setUrl] = useState('')
+  const [author, setAuthor] = useState('')
+
+  const handleNewBlog = (event) => {
+    event.preventDefault()
+    const newBlog = {
+      title: title,
+      url: url,
+      author: author
+    }
+    createBlog(newBlog)
+
+    setAuthor('')
+    setTitle('')
+    setUrl('')
+  }
+
+
+  return (
+    <form onSubmit={handleNewBlog}>
       <div>
         title
         <input
@@ -26,7 +49,8 @@ const AddBlog = ({ setTitle, setUrl, setAuthor, onSubmit }) => (
       </div>
       <button type="submit">Add Blog</button>
     </form>
-  );
+  )
+}
   
   export default AddBlog;
   
