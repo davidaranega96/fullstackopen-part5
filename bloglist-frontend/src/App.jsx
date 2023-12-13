@@ -21,6 +21,10 @@ const App = () => {
   }, [])
 
   useEffect(() => {
+    setBlogs((prevBlogs) => prevBlogs.sort((a, b) => b.likes - a.likes))
+  }, [blogs])
+
+  useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
@@ -61,10 +65,25 @@ const App = () => {
   const createBlog = async (newBlogObject) => {
     try {
       const response = await blogService.postBlog(newBlogObject)
-      console.log('newblog response', response)
       setBlogs(blogs.concat(response.data))
       setNotification({ message: 'blog added', tone: 'good' })
     } catch (error) {
+      console.log(error)
+      setNotification({
+        message: error.response.data.error,
+        tone: 'bad'
+      })
+    }
+  }
+
+  const updateBlog = async (updatedBlog) => {
+    try {
+      await blogService.putBlog(updatedBlog)
+      setBlogs((prevBlogs) =>
+        prevBlogs.map((blog) => (blog.id === updatedBlog.id ? updatedBlog : blog))
+      )
+    } catch (error) {
+      console.log(error)
       setNotification({
         message: error.response.data.error,
         tone: 'bad'
@@ -86,7 +105,7 @@ const App = () => {
       <div>
         {user.name} logged in <button onClick={handleLogout}>logout</button>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
       )}
       <Togglable buttonLabel='add blog'>
         <NewBlog createBlog={createBlog} />

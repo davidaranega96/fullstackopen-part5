@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import blogService from '../services/blogs'
+import { useState } from 'react'
 
 const AddBlog = ({ createBlog }) => {
   const [title, setTitle] = useState('')
@@ -14,7 +13,6 @@ const AddBlog = ({ createBlog }) => {
       author: author
     }
     createBlog(newBlog)
-
     setAuthor('')
     setTitle('')
     setUrl('')
@@ -28,6 +26,7 @@ const AddBlog = ({ createBlog }) => {
         <input
           type="text"
           name="Title"
+          value={title}
           onChange={({ target }) => setTitle(target.value)}
         />
       </div>
@@ -36,6 +35,7 @@ const AddBlog = ({ createBlog }) => {
         <input
           type="text"
           name="url"
+          value={url}
           onChange={({ target }) => setUrl(target.value)}
         />
       </div>
@@ -44,6 +44,7 @@ const AddBlog = ({ createBlog }) => {
         <input
           type="text"
           name="author"
+          value={author}
           onChange={({ target }) => setAuthor(target.value)}
         />
       </div>
