@@ -42,6 +42,8 @@ blogRouter.delete('/:id', async (request, response, next) => {
   try {
     const idToDelete = new mongoose.Types.ObjectId(request.params.id)
     const blog = await Blog.findById(idToDelete)
+    console.log(blog)
+    console.log(request.user)
     if (!blog) {
       response.status(202).end()
     } else if (blog.user.toString() !== request.user.id.toString()) {

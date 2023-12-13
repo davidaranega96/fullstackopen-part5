@@ -91,6 +91,18 @@ const App = () => {
     }
   }
 
+  const deleteBlog = async (blogToDelete) => {
+    try {
+      await blogService.deleteBlog(blogToDelete)
+      setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== blogToDelete.id))
+    } catch (error) {
+      setNotification({
+        message: error.response.data.error,
+        tone: 'bad'
+      })
+    }
+  }
+
   const loginForm = () => {
     return (
       <Togglable buttonLabel='login'>
@@ -105,7 +117,7 @@ const App = () => {
       <div>
         {user.name} logged in <button onClick={handleLogout}>logout</button>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
       )}
       <Togglable buttonLabel='add blog'>
         <NewBlog createBlog={createBlog} />
