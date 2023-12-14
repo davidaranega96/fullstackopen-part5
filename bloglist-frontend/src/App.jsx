@@ -25,11 +25,11 @@ const App = () => {
       <h2>blogs</h2>
       {!user && <Login setNotification={setNotification} setUser={setUser}/>}
       {user && 
-      <div>
-        logged in as {user.name} <button onClick={handleLogout}>logout</button>
-        <Blogs setNotification={setNotification} />
-      </div>
-        }
+        <div>
+          logged in as {user.name} <button onClick={handleLogout}>logout</button>
+          <Blogs setNotification={setNotification} />
+        </div>
+      }
     </div>
   )
 }
