@@ -52,6 +52,5 @@ const AddBlog = ({ createBlog }) => {
     </form>
   )
 }
-  
-  export default AddBlog;
-  
+
+export default AddBlog

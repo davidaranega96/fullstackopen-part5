@@ -25,7 +25,7 @@ const Blogs = ({ setNotification }) => {
       setNotification({ message: 'blog added', tone: 'good' })
       blogFormRef.current.toggleVisibility()
     } catch (error) {
-      setNotification({message: 'error creating blog', tone: 'bad'})
+      setNotification({ message: 'error creating blog', tone: 'bad' })
     }
   }
 
@@ -55,16 +55,16 @@ const Blogs = ({ setNotification }) => {
     }
   }
 
-    return (
-        <div>
-        {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
-        )}
-        <Togglable buttonLabel='add blog' ref={blogFormRef}>
-          <BlogForm createBlog={createBlog}/>
-        </Togglable>
-        </div>
-      )
+  return (
+    <div>
+      {blogs.map(blog =>
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
+      )}
+      <Togglable buttonLabel='add blog' ref={blogFormRef}>
+        <BlogForm createBlog={createBlog}/>
+      </Togglable>
+    </div>
+  )
 }
 
 export default Blogs

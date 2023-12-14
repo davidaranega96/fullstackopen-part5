@@ -22,8 +22,8 @@ const postBlog = async (blog) => {
 const putBlog = async (blog) => {
   const url = `${baseUrl}/${blog.id}`
   return await axios.put(
-    url, 
-    {title: blog.title, author: blog.author, likes: blog.likes, user: blog.user.id, url: blog.url}
+    url,
+    { title: blog.title, author: blog.author, likes: blog.likes, user: blog.user.id, url: blog.url }
   )
 }
 

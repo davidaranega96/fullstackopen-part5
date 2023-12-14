@@ -14,7 +14,7 @@ const Login = ({ setNotification, setUser }) => {
       setUser(user)
       blogService.setToken(user.token)
     }
-  }, [])
+  }, [setUser])
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -32,32 +32,31 @@ const Login = ({ setNotification, setUser }) => {
     }
   }
 
-    return (
-      <Togglable buttonLabel='login'>
-        <form onSubmit={handleLogin}>
-          <div>
-            username
-            <input
-              type="text"
-              value={username}
-              name="Username"
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </div>
-          <div>
-            password
-            <input
-              type="password"
-              value={password}
-              name="Password"
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </div>
-          <button type="submit">login</button>
-        </form>
-      </Togglable>
-    )
+  return (
+    <Togglable buttonLabel='login'>
+      <form onSubmit={handleLogin}>
+        <div>
+          username
+          <input
+            type="text"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          password
+          <input
+            type="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <button type="submit">login</button>
+      </form>
+    </Togglable>
+  )
 }
 
-  export default Login
-  
+export default Login

@@ -26,18 +26,18 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
     return (
       <div className='blog'>
         {blog.title} <br />
-        {blog.url} <br /> 
+        {blog.url} <br />
         {blog.likes} | <LikeButton /> <br />
         {blog.author} <br />
         <DeleteButton/>
         <button onClick={() => {setShow(!show)}}>Hide</button> <br />
-      </div>  
+      </div>
     )
   } else {
     return (
       <div className='blog'>
         {blog.title} <DeleteButton/> <button onClick={() => setShow(!show)}>Show</button>
-      </div>  
+      </div>
     )
   }
 }
