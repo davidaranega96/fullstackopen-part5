@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import blogService from '../services/blogs'
 import BlogForm from './BlogForm'
 import Blog from './Blog'
@@ -66,5 +67,10 @@ const Blogs = ({ setNotification }) => {
     </div>
   )
 }
+
+Blogs.propTypes = {
+  setNotification: PropTypes.func.isRequired
+}
+Blogs.displayName = 'Blogs'
 
 export default Blogs

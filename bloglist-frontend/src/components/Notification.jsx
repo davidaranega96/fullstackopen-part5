@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const Notification = ({ notification }) => {
   const { message, tone } = notification
   const tone_style = `notification ${tone}`
@@ -10,6 +12,10 @@ const Notification = ({ notification }) => {
       {message}
     </div>
   )
+}
+
+Notification.propTypes = {
+  notification: PropTypes.object.isRequired
 }
 
 export default Notification

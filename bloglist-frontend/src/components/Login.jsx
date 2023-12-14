@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import Togglable from './Togglable'
 import loginService from '../services/login'
 import blogService from '../services/blogs'
@@ -58,5 +59,11 @@ const Login = ({ setNotification, setUser }) => {
     </Togglable>
   )
 }
+
+Login.propTypes = {
+  setNotification: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired
+}
+Login.displayName = 'Login'
 
 export default Login
