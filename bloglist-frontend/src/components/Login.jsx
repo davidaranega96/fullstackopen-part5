@@ -34,7 +34,7 @@ const Login = ({ setNotification, setUser }) => {
   }
 
   return (
-    <Togglable buttonLabel='login'>
+    <Togglable buttonLabel='login' className='login'>
       <form onSubmit={handleLogin}>
         <div>
           username

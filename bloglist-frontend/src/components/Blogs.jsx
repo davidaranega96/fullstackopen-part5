@@ -57,7 +57,7 @@ const Blogs = ({ setNotification }) => {
   }
 
   return (
-    <div>
+    <div className='blogs'>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
       )}
