@@ -29,7 +29,7 @@ const authenticateToken = (request, response, next) => {
   const method = request.method
   const path = request.path
   if (requireAuthentication[method].some((requiredPath) => path.startsWith(requiredPath))) {
-    console.log('deleting blog...')
+    console.log(request)
     const token = decodeBearerToken(request)
     if (!token) {
       return response.status(401).send({ error: 'invalid token' })

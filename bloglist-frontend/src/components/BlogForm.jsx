@@ -52,7 +52,7 @@ const AddBlog = ({ createBlog }) => {
           id='author-input'
         />
       </div>
-      <button type="submit">Add Blog</button>
+      <button type="submit" id='submit-button'>Add Blog</button>
     </form>
   )
 }

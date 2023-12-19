@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
 
 const Blog = ({ blog, updateBlog, deleteBlog }) => {
@@ -31,7 +32,7 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
         {blog.likes} | <LikeButton /> <br />
         {blog.author} <br />
         <DeleteButton/>
-        <button onClick={() => {setShow(!show)}}>Hide</button> <br />
+        <button onClick={() => {setShow(!show)}} id='delete-blog'>Hide</button> <br />
       </div>
     )
   } else {

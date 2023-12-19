@@ -22,12 +22,17 @@ mongoose.connect(config.DB_URL)
   })
 
 app.use(cors())
-/*app.use(express.static('dist'))*/
 app.use(express.json())
 app.use(middleware.authenticateToken)
 app.use('/api/blogs', blogRouter)
 app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)
+
+if (process.env.NODE_ENV === 'test') {
+  const testingRouter = require('./controllers/testing')
+  app.use('/api/testing', testingRouter)
+  console.log('inside test')
+}
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandling)
