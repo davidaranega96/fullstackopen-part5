@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 
 blogRouter.get('', async (request, response, next) => {
   try {
-    const blogs = await Blog.find({}).populate('user', { name: 1, username: 1 })
+    const blogs = await Blog.find({}).populate('user', { name: 1, username: 1, id: 1 })
 
     if (blogs) {
       response.json(blogs)
@@ -32,7 +32,7 @@ blogRouter.post('', async (request, response, next) => {
     user.blogs = user.blogs.concat(savedBlog._id)
     await user.save()
 
-    response.status(201).json(savedBlog)
+    response.status(201).json(await savedBlog.populate('user', { name: 1, username: 1, id: 1 }))
   } catch (error){
     next(error)
   }

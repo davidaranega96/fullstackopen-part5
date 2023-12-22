@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
 
-const Blog = ({ blog, updateBlog, deleteBlog }) => {
+const Blog = ({ blog, updateBlog, deleteBlog, user }) => {
   const [show, setShow] = useState(false)
 
   const LikeButton = () => {
@@ -12,9 +11,13 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
   }
 
   const DeleteButton = () => {
-    return (
-      <button onClick={() => deleteBlog(blog)}>delete</button>
-    )
+    if (user.username !== blog.user.username) {
+      return null
+    } else {
+      return (
+        <button onClick={() => deleteBlog(blog)}>delete</button>
+      )
+    }
   }
 
   const likeBlog = () => {
@@ -26,7 +29,7 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
 
   if (show) {
     return (
-      <div className='blog'>
+      <div className='blog' id='blog'>
         {blog.title} <br />
         {blog.url} <br />
         {blog.likes} | <LikeButton /> <br />
@@ -38,7 +41,7 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
   } else {
     return (
       <div className='blog'>
-        {blog.title} <DeleteButton/> <button onClick={() => setShow(!show)}>Show</button>
+        {blog.title} <DeleteButton/> <button onClick={() => setShow(!show)} id='show-blog'>Show</button>
       </div>
     )
   }
@@ -47,7 +50,7 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
 Blog.propTypes = {
   blog: PropTypes.object.isRequired,
   updateBlog: PropTypes.func.isRequired,
-  deleteBlog: PropTypes.func.isRequired
+  deleteBlog: PropTypes.func
 }
 Blog.displayName = 'Blog'
 

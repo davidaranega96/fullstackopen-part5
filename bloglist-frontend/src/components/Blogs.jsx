@@ -5,7 +5,7 @@ import BlogForm from './BlogForm'
 import Blog from './Blog'
 import Togglable from './Togglable'
 
-const Blogs = ({ setNotification }) => {
+const Blogs = ({ setNotification, user }) => {
   const [blogs, setBlogs] = useState([])
   const blogFormRef = useRef()
 
@@ -57,9 +57,9 @@ const Blogs = ({ setNotification }) => {
   }
 
   return (
-    <div className='blogs'>
+    <div className='blogs' id='blogs'>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} deleteBlog={deleteBlog} user={user} id='blog'/>
       )}
       <Togglable buttonLabel='add blog' ref={blogFormRef}>
         <BlogForm createBlog={createBlog}/>

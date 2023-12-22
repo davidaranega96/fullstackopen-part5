@@ -38,6 +38,7 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "globalTeardown": "./tests/teardown.js"
+    "globalTeardown": "./tests/teardown.js",
+    "testPathIgnorePatterns": ["./bloglist-frontend/"]
   }
 }

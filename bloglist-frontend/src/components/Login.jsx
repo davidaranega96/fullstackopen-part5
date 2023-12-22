@@ -20,6 +20,7 @@ const Login = ({ setNotification, setUser }) => {
   const handleLogin = async (event) => {
     event.preventDefault()
     const auth = await loginService.login({ username, password })
+    console.log(auth)
     if (auth) {
       setUser(auth)
       blogService.setToken(auth.token)

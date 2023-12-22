@@ -27,7 +27,7 @@ const App = () => {
       {user &&
         <div>
           logged in as {user.name} <button onClick={handleLogout}>logout</button>
-          <Blogs setNotification={setNotification} />
+          <Blogs setNotification={setNotification} user={user}/>
         </div>
       }
     </div>

@@ -53,7 +53,6 @@ describe('blog app', () => {
     describe('with a created blog', function() {
       beforeEach(function() {
         const loggedUserJson = JSON.parse(localStorage.getItem('loggedUser'))
-        console.log(loggedUserJson)
         cy.request({
           method: 'POST',
           url: 'http://localhost:3000/api/blogs',
@@ -73,6 +72,41 @@ describe('blog app', () => {
         cy.contains('delete').click()
         cy.wait(1000)
         cy.contains('test blog').should('not.exist')
+      })
+
+      it('different user can\'t delete blog', function() {
+        cy.contains('logout').click()
+
+        const user = {
+          name: 'TEST ',
+          username: 'TEST96',
+          password: 'pass12345test'
+        }
+        cy.request('POST', 'http://localhost:3000/api/users/', user)
+        cy.login({ username: 'TEST96', password: 'pass12345test' })
+
+        cy.contains('Show').click()
+        cy.contains('delete').should('not.exist')
+      })
+
+      it('order of blogs is correct', function() {
+        cy.contains('Show').click()
+        cy.contains('like').click()
+        const loggedUserJson = JSON.parse(localStorage.getItem('loggedUser'))
+        cy.request({
+          method: 'POST',
+          url: 'http://localhost:3000/api/blogs',
+          body: { title: 'test blog with most likes', url: 'test.url', author: 'Test user' },
+          headers: { authorization: `Bearer ${loggedUserJson.token}` }
+        })
+        cy.visit('http://localhost:5173')
+
+        cy.contains('test blog with most likes').contains('Show').click()
+        cy.contains('test blog with most likes').contains('like').click()
+        cy.contains('test blog with most likes').contains('like').click()
+
+        cy.contains('.blogs #blog', 'test blog with most likes').should('be.visible')
+        cy.contains('.blogs #blog', 'test blog').should('be.visible')
       })
     })
   })
